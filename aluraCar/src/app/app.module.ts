@@ -7,15 +7,28 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { EscolhaPage } from '../pages/escolha/escolha';
+import { CadastroPage } from '../pages/cadastro/cadastro';
 
 import 'rxjs/add/operator/map';
 import { HttpModule } from '@angular/http';
+
+import {Storage} from '@ionic/storage'
+
+
+function provideStorage() {
+  return new Storage({ 
+    name: 'aluracar',
+    storeName: 'agendamentos'
+  });
+}
+
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    EscolhaPage
+    EscolhaPage,
+    CadastroPage
   ],
   imports: [
     HttpModule,
@@ -26,12 +39,14 @@ import { HttpModule } from '@angular/http';
   entryComponents: [
     MyApp,
     HomePage,
-    EscolhaPage
+    EscolhaPage,
+    CadastroPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {provide: Storage, useFactory: provideStorage}
   ]
 })
 export class AppModule {}
