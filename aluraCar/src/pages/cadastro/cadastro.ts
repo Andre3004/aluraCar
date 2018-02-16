@@ -10,15 +10,15 @@ import {Storage} from '@ionic/storage';
 })
 export class CadastroPage {
 
-  public carro;
-
-  public precoTotal;
-
-  public endereco;
-
   public nome;
 
   public email;
+
+  public endereco;
+
+  public carro;
+
+  public precoTotal;  
 
   public data = new Date().toISOString();
 
@@ -60,12 +60,30 @@ export class CadastroPage {
               this._alerta.setSubTitle('Agendamento realizado com sucesso.');
               this._alerta.present();
               this.confirmado = true;
+              this._alerta.present();
+                let key = this.email + this.data.substr(0,10);
+                return this.storage.set(key, {
+                  nome: this.nome, 
+                  email: this.email, 
+                  endereco: this.endereco, 
+                  carro : this.carro,
+                  precoTotal: this.precoTotal,
+                  data : this.data, 
+                  agendado: true})
+
             }) 
             .catch(erro => {
               this._alerta.setSubTitle('Não foi possível realizar o agendamento!');
               this._alerta.present();
                 let key = this.email + this.data.substr(0,10);
-                return this.storage.set(key, {nome: this.nome, email: this.email, endereco: this.endereco })
+                return this.storage.set(key, {
+                  nome: this.nome, 
+                  email: this.email, 
+                  endereco: this.endereco, 
+                  carro : this.carro,
+                  precoTotal: this.precoTotal,
+                  data : this.data,
+                  agendado: false })
             });
   }
 }
