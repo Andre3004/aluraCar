@@ -1,0 +1,1 @@
+ws.on('error', () => console.log('errored'));

@@ -1,16 +1,28 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Agendamentos</ion-title>
-  </ion-navbar>
+	<ion-navbar>
+		<ion-title>Agendamentos</ion-title>
+	</ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-    <ion-list>
-        <ion-item [class.falha]="!agendamento.agendado"*ngFor="let agendamento of agendamentos">
-          {{agendamento.carro.nome}} - {{agendamento.carro.preco}}
-        </ion-item>
-    </ion-list>
+
+	<ion-list>
+
+		<ion-item-sliding *ngFor="let agendamento of agendamentos">
+
+			<ion-item [class.falha]="!agendamento.agendado">
+				{{agendamento.carro.nome}} - {{agendamento.carro.preco}}
+			</ion-item>
+
+			<ion-item-options side="right">
+				<button ion-button (click)="reenvia(agendamento)"*ngIf="!agendamento.agendado">Reenviar</button>
+			</ion-item-options>
+
+		</ion-item-sliding>
+
+	</ion-list>
+	
 </ion-content>

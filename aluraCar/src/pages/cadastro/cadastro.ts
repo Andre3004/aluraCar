@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, Alert } from 'ionic-angular';
 import {Storage} from '@ionic/storage';
+import { Vibration } from '@ionic-native/vibration';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class CadastroPage {
 
   public confirmado = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, public alertCtrl: AlertController, public storage: Storage) 
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, public alertCtrl: AlertController, public storage: Storage, private vibration: Vibration) 
   {
     this.carro = this.navParams.get('carro');
     this.precoTotal = this.navParams.get('precoTotal');
@@ -50,6 +51,7 @@ export class CadastroPage {
         buttons: [{ text: 'OK'}]
       }).present();
 
+      this.vibration.vibrate(500);
       return ;
     }
 
@@ -59,17 +61,15 @@ export class CadastroPage {
             .then(() => {
               this._alerta.setSubTitle('Agendamento realizado com sucesso.');
               this._alerta.present();
-              this.confirmado = true;
-              this._alerta.present();
-                let key = this.email + this.data.substr(0,10);
-                return this.storage.set(key, {
-                  nome: this.nome, 
-                  email: this.email, 
-                  endereco: this.endereco, 
-                  carro : this.carro,
-                  precoTotal: this.precoTotal,
-                  data : this.data, 
-                  agendado: true})
+              let key = this.email + this.data.substr(0,10);
+              return this.storage.set(key, {
+                nome: this.nome, 
+                email: this.email, 
+                endereco: this.endereco, 
+                carro : this.carro,
+                precoTotal: this.precoTotal,
+                data : this.data,
+                agendado: true })
 
             }) 
             .catch(erro => {

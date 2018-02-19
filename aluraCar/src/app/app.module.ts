@@ -1,3 +1,4 @@
+import { UsuarioService } from './../pages/login/usuario-service';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -15,6 +16,8 @@ import { HttpModule } from '@angular/http';
 
 import {Storage} from '@ionic/storage';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { LoginPage } from '../pages/login/login';
+import { PerfilPage } from '../pages/perfil/perfil';
 
 
 function provideStorage() {
@@ -31,7 +34,9 @@ function provideStorage() {
     HomePage,
     EscolhaPage,
     CadastroPage,
-    AgendamentosPage
+    AgendamentosPage,
+    LoginPage,
+    PerfilPage
   ],
   imports: [
     HttpModule,
@@ -44,13 +49,16 @@ function provideStorage() {
     HomePage,
     EscolhaPage,
     CadastroPage,
-    AgendamentosPage
+    AgendamentosPage,
+    LoginPage,
+    PerfilPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    {provide: Storage, useFactory: provideStorage}
+    {provide: Storage, useFactory: provideStorage},
+    UsuarioService
   ]
 })
 export class AppModule {}
